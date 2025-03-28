@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     font-size: 30px;
     cursor: pointer;
     transition: all 0.3s;
@@ -28,6 +28,6 @@ img.card-img-top.product-preview-img {
 
 .sale__banner--container img {
     max-width: 1200px;
-    display: block;
+    display: flex;
     margin: 0 auto;
 }

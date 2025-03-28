@@ -7,7 +7,7 @@ import CheckoutForm from "../components/CheckoutForm";
 import { useIncreaseCartProductMutation, useDecreaseCartProductMutation, useRemoveFromCartMutation } from "../services/appApi";
 import "./CartPage.css";
 
-const stripePromise = loadStripe("your_stripe_publishable_key");
+const stripePromise = loadStripe("pk_test_51R5o3VHCgLmcO9y2vVFV7YgWczBn8y2Jck6LAYAaqoQKOKqJ23Y8eNhVuXzyDXQKK3ecJNZBfzElB77FV0N5F98s00b7FLNtHL");
 
 function CartPage() {
     const user = useSelector((state) => state.user);

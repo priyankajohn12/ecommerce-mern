@@ -20,19 +20,25 @@ function CheckoutForm() {
         e.preventDefault();
         if (!stripe || !elements || user.cart.count <= 0) return;
         setPaying(true);
+
+
         const { client_secret } = await fetch("http://localhost:8080/create-payment", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: "Bearer ",
+                Authorization: "Bearer" ,
+
             },
             body: JSON.stringify({ amount: user.cart.total }),
         }).then((res) => res.json());
-        const { paymentIntent } = await stripe.confirmCardPayment(client_secret, {
+
+        // Confirm the card payment with the correct client_secret
+        const { paymentIntent, error } = await stripe.confirmCardPayment(client_secret, {
             payment_method: {
                 card: elements.getElement(CardElement),
             },
         });
+
         setPaying(false);
 
         if (paymentIntent) {
@@ -40,10 +46,12 @@ function CheckoutForm() {
                 if (!isLoading && !isError) {
                     setAlertMessage(`Payment ${paymentIntent.status}`);
                     setTimeout(() => {
-                        // navigate("/orders");
+                        navigate("/orders");
                     }, 3000);
                 }
             });
+        } else if (error) {
+            setAlertMessage(`Payment failed: ${error.message}`);
         }
     }
 

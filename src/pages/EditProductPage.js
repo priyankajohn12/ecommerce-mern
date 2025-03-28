@@ -58,12 +58,16 @@ function EditProductPage() {
     function showWidget() {
         const widget = window.cloudinary.createUploadWidget(
             {
-                cloudName: "your-cloudname",
-                uploadPreset: "your-preset",
+                cloudName: "dqhj30agj", // Your Cloud Name here
+                uploadPreset: "jklhnmop", // Your Upload Preset here
             },
             (error, result) => {
                 if (!error && result.event === "success") {
-                    setImages((prev) => [...prev, { url: result.info.url, public_id: result.info.public_id }]);
+                    // Upload successful, add the image URL to the images array
+                    setImages((prev) => [
+                        ...prev,
+                        { url: result.info.url, public_id: result.info.public_id },
+                    ]);
                 }
             }
         );
@@ -80,17 +84,36 @@ function EditProductPage() {
                         {isError && <Alert variant="danger">{error.data}</Alert>}
                         <Form.Group className="mb-3">
                             <Form.Label>Product name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter product name" value={name} required onChange={(e) => setName(e.target.value)} />
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter product name"
+                                value={name}
+                                required
+                                onChange={(e) => setName(e.target.value)}
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Product description</Form.Label>
-                            <Form.Control as="textarea" placeholder="Product description" style={{ height: "100px" }} value={description} required onChange={(e) => setDescription(e.target.value)} />
+                            <Form.Control
+                                as="textarea"
+                                placeholder="Product description"
+                                style={{ height: "100px" }}
+                                value={description}
+                                required
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Price($)</Form.Label>
-                            <Form.Control type="number" placeholder="Price ($)" value={price} required onChange={(e) => setPrice(e.target.value)} />
+                            <Form.Control
+                                type="number"
+                                placeholder="Price ($)"
+                                value={price}
+                                required
+                                onChange={(e) => setPrice(e.target.value)}
+                            />
                         </Form.Group>
 
                         <Form.Group className="mb-3" onChange={(e) => setCategory(e.target.value)}>
@@ -112,9 +135,14 @@ function EditProductPage() {
                             </Button>
                             <div className="images-preview-container">
                                 {images.map((image) => (
-                                    <div className="image-preview">
-                                        <img src={image.url} />
-                                        {imgToRemove != image.public_id && <i className="fa fa-times-circle" onClick={() => handleRemoveImg(image)}></i>}
+                                    <div className="image-preview" key={image.public_id}>
+                                        <img src={image.url} alt="uploaded" />
+                                        {imgToRemove !== image.public_id && (
+                                            <i
+                                                className="fa fa-times-circle"
+                                                onClick={() => handleRemoveImg(image)}
+                                            ></i>
+                                        )}
                                     </div>
                                 ))}
                             </div>

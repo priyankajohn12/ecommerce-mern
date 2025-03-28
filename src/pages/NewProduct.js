@@ -43,8 +43,8 @@ function NewProduct() {
     function showWidget() {
         const widget = window.cloudinary.createUploadWidget(
             {
-                cloudName: "learn-code-10",
-                uploadPreset: "dcizdwph",
+                cloudName: "dqhj30agj",
+                uploadPreset: "jklhnmop",
             },
             (error, result) => {
                 if (!error && result.event === "success") {
@@ -80,8 +80,8 @@ function NewProduct() {
 
                         <Form.Group className="mb-3" onChange={(e) => setCategory(e.target.value)}>
                             <Form.Label>Category</Form.Label>
-                            <Form.Select>
-                                <option disabled selected>
+                            <Form.Select value={category} onChange={(e) => setCategory(e.target.value)}>
+                                <option disabled value="">
                                     -- Select One --
                                 </option>
                                 <option value="technology">technology</option>
@@ -97,12 +97,15 @@ function NewProduct() {
                             </Button>
                             <div className="images-preview-container">
                                 {images.map((image) => (
-                                    <div className="image-preview">
-                                        <img src={image.url} />
-                                        {imgToRemove != image.public_id && <i className="fa fa-times-circle" onClick={() => handleRemoveImg(image)}></i>}
+                                    <div className="image-preview" key={image.public_id}>
+                                        <img src={image.url} alt="Uploaded preview" />
+                                        {imgToRemove !== image.public_id && (
+                                            <i className="fa fa-times-circle" onClick={() => handleRemoveImg(image)}></i>
+                                        )}
                                     </div>
                                 ))}
                             </div>
+
                         </Form.Group>
 
                         <Form.Group>
